@@ -6,6 +6,7 @@
 1.烧写树莓派镜像
 *登录https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit
 下载Raspberry Pi OS with desktop and recommended software并解压
+
 *登录https://www.balena.io/etcher/
 下载操作系统对应的烧录器（如：Etcher for Windows (x86|x64) (Installer)）并安装
 使用etcher将Raspberry Pi OS烧录至TF卡
