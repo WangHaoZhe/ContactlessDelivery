@@ -6,7 +6,6 @@
 1.烧写树莓派镜像
 * 登录https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit
 下载Raspberry Pi OS with desktop and recommended software并解压
-
 * 登录https://www.balena.io/etcher/
 下载操作系统对应的烧录器（如：Etcher for Windows (x86|x64) (Installer)）并安装
 使用etcher将Raspberry Pi OS烧录至TF卡
@@ -23,8 +22,11 @@
 sudo nano /etc/apt/sources.list
 ```
 进入后将其他删除，将下面两行粘贴至文件中：
+
+```
 deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib
 deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib
+```
 Crtl-X 输入Y 回车
 
 * 打开终端，输入
@@ -45,13 +47,15 @@ sudo raspi-config
 
 * 安装tensorflow：
 打开终端。将下行粘贴至终端：
+```
 wget https://github.com/lhelontra/tensorflow-on-arm/releases/download/v1.8.0/tensorflow-1.8.0-cp27-none-linux_armv7l.whl
+```
 待执行完毕，将下行粘贴至终端：
 ```
 sudo pip install tensorflow-1.8.0-cp27-none-linux_armv7l.whl
 ```
 待执行完毕，输入python，进入后输入
-```
+```python
 import tensorflow as tf
 tf.__version__
 ```
@@ -63,7 +67,7 @@ sudo apt-get install libopencv-dev
 待执行完毕，将下行粘贴至终端：
 sudo apt-get install python-opencv
 待执行完毕，输入python，进入后输入
-```
+```python
 import cv2
 cv2.__version__
 ```
@@ -105,4 +109,4 @@ python contactless_delivery.py
 
 ***
 
-若后续有更新，将通过我的Github发布https://github.com/WangHaoZhe/ContactlessDelivery
+若后续有更新，将通过我的Github发布https://github.com/WangHaoZhe?tab=repositories
