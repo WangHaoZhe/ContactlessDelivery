@@ -1,4 +1,4 @@
-平台：Raspberry Pi（树莓派） 4B 4GB 摄像头：Raspberry Pi Camera Module v2（若没有摄像头我提供了演示示例，在第四步请按照演示程序运行）
+平台：Raspberry Pi（树莓派） 4B 4GB 摄像头：Raspberry Pi Camera Module v2（兼容USB摄像头，若没有摄像头我提供了演示示例，在第四步请按照演示程序运行）
 软件环境：Python 2.7.16 Tensorflow 1.8.0 Opencv 3.2.0
 
 ***
@@ -34,7 +34,7 @@ Crtl-X 输入Y 回车
 sudo raspi-config
 ```
 选择Update
-进入Interface Options，将Camera SSH VNC设为enable（若不使用VNC远程桌面可不用设置VNC，若没有摄像头不用配置Camera）
+进入Interface Options，将Camera SSH VNC设为enable（需提前插入摄像头，若没有摄像头不用配置Camera。若不使用VNC远程桌面可不用设置VNC）
 进入Advanced Options，Expand Filesystem
 打开终端输入sudo reboot重启
 
@@ -108,6 +108,17 @@ cd /home/pi/Desktop/contactless_delivery
 
 有摄像头：
 
+需确保仅有一个摄像头接入树莓派。断开及连接摄像头时需先关机断电，否则可能造成进程冲突、摄像头冲突甚至摄像头损坏。
+
+接入摄像头后在终端输入
+
+```
+vcgencmd get_camera #使用树莓派摄像头请输入这行
+lsusb #使用usb摄像头请输入这行
+```
+
+应正确识别到摄像头。识别无误后继续进行下面的步骤。若有问题可以重新插拔摄像头，并重新进入sudo raspi-config中Interface Options配置摄像头（同第二步）
+
 输入
 
 ```
@@ -124,10 +135,7 @@ python contactless_delivery_demo.py
 
 运行时应显示：
 
-package delivered
-dangerous
-dangerous
-none
+package delivered、dangerous、dangerous、none
 
 分别对应demo_pictures中1.jpg 2.jpg 3.jpg 4.jpg的情况
 

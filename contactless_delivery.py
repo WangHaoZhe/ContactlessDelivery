@@ -1,5 +1,5 @@
 import package_detection
-from picamera import PiCamera
+#from picamera import PiCamera
 from time import sleep
 import numpy as np
 import os
@@ -14,12 +14,10 @@ from object_detection.utils import visualization_utils as vis_util
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 PATH = '/home/pi/Desktop'
-sys.path.append("../..")
-camera = PiCamera()
-
-threshold = 10
-flag = 0
 sleep_time = 10
+
+sys.path.append("../..")
+flag = 0
 
 MODEL_NAME = 'ssd_mobilenet_v1_coco_2018_01_28'
 
@@ -48,6 +46,11 @@ categories = label_map_util.convert_label_map_to_categories(label_map, max_num_c
 category_index = label_map_util.create_category_index(categories)
 
 person_flag = 0
+def cap(name):
+        camera = cv2.VideoCapture(0)
+        ret, frame = camera.read()
+        cv2.imwrite(PATH+'/contactless_delivery/'+name+'.jpg',frame)
+
 with detection_graph.as_default():
     with tf.Session(graph=detection_graph) as sess:
         writer = tf.summary.FileWriter("logs/", sess.graph)
@@ -56,10 +59,8 @@ with detection_graph.as_default():
         loader = tf.train.import_meta_graph(model_path + '.meta')
         loader.restore(sess, model_path)
         
-        #camera.start_preview()
-        camera.capture(PATH+'/contactless_delivery/original.jpg')
-        #camera.stop_preview()
-        
+        cap('original')
+
         def detection():
             cap = cv2.imread(PATH+"/contactless_delivery/new.jpg")
             start = time.clock()
@@ -92,10 +93,9 @@ with detection_graph.as_default():
             print('One frame detect take time:' ,end - start)
             cv2.imshow("capture", image_np)
             cv2.waitKey(1)
-            #cv2.destroyAllWindows()
-
+        
         while(1):
-            camera.capture(PATH+'/contactless_delivery/new.jpg')
+            cap('new')
 
             if package_detection.detection()>=1:
                 person_info = detection()
