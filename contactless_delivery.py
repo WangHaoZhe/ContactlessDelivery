@@ -1,5 +1,4 @@
 import package_detection
-#from picamera import PiCamera
 from time import sleep
 import numpy as np
 import os
