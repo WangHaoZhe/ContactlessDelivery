@@ -1,5 +1,5 @@
-import package_detection
-from picamera import PiCamera
+import package_detection_demo
+#from picamera import PiCamera
 from time import sleep
 import numpy as np
 import os
@@ -15,7 +15,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 PATH = '/home/pi/Desktop'
 sys.path.append("../..")
-camera = PiCamera()
+#camera = PiCamera()
 
 threshold = 10
 flag = 0
@@ -57,11 +57,11 @@ with detection_graph.as_default():
         loader.restore(sess, model_path)
         
         #camera.start_preview()
-        camera.capture(PATH+'/contactless_delivery/original.jpg')
+        #camera.capture(PATH+'/contactless_delivery/original.jpg')
         #camera.stop_preview()
         
-        def detection():
-            cap = cv2.imread(PATH+"/contactless_delivery/new.jpg")
+        def detection(picture):
+            cap = cv2.imread(PATH+"/contactless_delivery/demo_pictures/"+picture+".jpg")
             start = time.clock()
             image_np =cap
 
@@ -94,11 +94,10 @@ with detection_graph.as_default():
             cv2.waitKey(1)
             #cv2.destroyAllWindows()
 
-        while(1):
-            camera.capture(PATH+'/contactless_delivery/new.jpg')
-
-            if package_detection.detection()>=1:
-                person_info = detection()
+        for i in range(1,5):
+            picture = str(i)
+            if package_detection_demo.detection(picture)>=1:
+                person_info = detection(picture)
                 if person_info==0:
                     print('package delivered')
                 else:
